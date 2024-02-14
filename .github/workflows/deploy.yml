@@ -1,0 +1,30 @@
+name: Deployment
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deployment
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install PNPM
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+      - name: Install dependencies
+        run: pnpm install
+      - name: Prepare wrangler.toml
+        run: |
+          cp wrangler-example.toml wrangler.toml
+          sed -i 's|{{SECRET}}|${{ secrets.SECRET }}|g' wrangler.toml
+          sed -i 's|{{CUSTOM_DOMAIN}}|${{ secrets.CUSTOM_DOMAIN }}|g' wrangler.toml
+          sed -i 's|{{CUSTOM_DOMAIN_ZONE}}|${{ secrets.CUSTOM_DOMAIN_ZONE }}|g' wrangler.toml
+          sed -i 's|{{SMS_API_HOST}}|${{ secrets.SMS_API_HOST }}|g' wrangler.toml
+          sed -i 's|{{SMS_API_KEY}}|${{ secrets.SMS_API_KEY }}|g' wrangler.toml
+          sed -i 's|{{SMS_API_SENDER_ID}}|${{ secrets.SMS_API_SENDER_ID }}|g' wrangler.toml
+      - name: Deploy to CF Worker
+        run: CLOUDFLARE_API_TOKEN=${{ secrets.CLOUDFLARE_API_TOKEN }} pnpm run deploy

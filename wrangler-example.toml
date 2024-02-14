@@ -1,0 +1,20 @@
+name = "woocommerce-order-webhook-handler"
+main = "src/index.ts"
+compatibility_date = "2024-02-08"
+compatibility_flags = [ "nodejs_compat" ]
+
+route = { pattern = "{{CUSTOM_DOMAIN}}", zone_name = "{{CUSTOM_DOMAIN_ZONE}}", custom_domain = true }
+
+[placement]
+mode = "smart"
+
+[dev]
+ip="localhost"
+port = 3000
+local_protocol = "http"
+
+[vars]
+SECRET = "{{SECRET}}"
+SMS_API_HOST = "{{SMS_API_HOST}}"
+SMS_API_KEY = "{{SMS_API_KEY}}"
+SMS_API_SENDER_ID = "{{SMS_API_SENDER_ID}}"

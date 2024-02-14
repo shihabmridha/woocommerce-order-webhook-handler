@@ -1,0 +1,19 @@
+{
+  "name": "woocommerce-order-webhook-handler",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "start": "wrangler dev"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240208.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+		"@types/node": "^20.11.17",
+    "eslint": "^8.56.0",
+    "typescript": "^5.0.4",
+    "wrangler": "^3.0.0"
+  }
+}
