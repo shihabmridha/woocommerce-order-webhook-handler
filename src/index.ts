@@ -3,6 +3,10 @@ import { createHmac } from 'node:crypto';
 
 export default {
 	async fetch(request: Request, env: Env, _ctx: ExecutionContext): Promise<Response> {
+		if (request.method !== 'POST') {
+			return new Response('Method not allowed', { status: 405 });
+		}
+
 		const response = new Response('Done!');
 
 		const body = await request.json<RequestPayload>();
